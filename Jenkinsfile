@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                bat("xcopy $WORKSPACE ${iisApplicationPath} /EXCLUDE:.git /O /X /E /H /K /Y")
+                bat("xcopy $WORKSPACE ${iisApplicationPath} /EXCLUDE:$WORKSPACE\\.git /O /X /E /H /K /Y")
             }
         }
     }
