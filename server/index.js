@@ -3,21 +3,27 @@ const express = require("express");
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-var cors = require('cors');
-app.use(cors());
+const cors=require("cors");
+const corsOptions ={
+  origin:'*', 
+  credentials:true,            
+  optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions))
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 
 
-app.use(function(req, res, next) { //allow cross origin requests
-  res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
-  res.header("Access-Control-Allow-Origin", "http://www.tidashboard.com");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header("Access-Control-Allow-Credentials", true);
-  next();
-});
+// app.use(function(req, res, next) { //allow cross origin requests
+//   res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
+//   res.header("Access-Control-Allow-Origin", "http://www.tidashboard.com");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   res.header("Access-Control-Allow-Credentials", true);
+//   next();
+// });
 
 
 // Code to connect SQL Server using Node JS
