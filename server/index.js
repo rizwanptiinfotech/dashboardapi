@@ -77,7 +77,7 @@ app.get('/',function(req,res) {
 });
 
 
-app.post("/api/getgraphdata", (req, res) => {
+app.post("/api/getavgbookingTicketingdata", (req, res) => {
   //console.log(req.body);
   var sql = require('mssql'); 
   var config;
@@ -138,6 +138,166 @@ app.post("/api/getgraphdata", (req, res) => {
       });     
     }); 
 });    
+
+
+
+app.post("/api/getsupplieruses", (req, res) => {
+  //console.log(req.body);
+  var sql = require('mssql'); 
+  var config;
+  if(req.body.companyId==='FTI')
+  {
+   config = {
+    user: 'uatadminuser',
+    password: 'uat@Dmzx!w1R',
+    server: '52.66.99.73', 
+    database: 'UAT_TravelMaster_FTI',
+    options: {      
+        trustServerCertificate: true,  
+      }   
+    };
+  }
+     // connect to your sql database to get the graphic data for jenkins pipeline commit 3 dated on 02 jan 2023
+    sql.connect(config, function (err) {
+
+      if (err) console.log(err);  
+      // create Request object
+      var request = new sql.Request();
+      // query to the database and get the records
+      var searchdate=req.body.searchdate;
+      var service=req.body.service;
+      var channel=req.body.channel;     
+      var companyId=req.body.companyId;
+      var procqry="exec sp_supplierUses  @SearchDate='" + searchdate + "', @Service='" + service + "', @Channel='" + channel + "' ,@CompId='" + companyId + "';";
+      console.log(procqry);
+      request.query(procqry, function (err, recordset) {
+          if (err) console.log(err); 
+          res.send(JSON.parse(recordset.recordsets[0][0][""]));
+          console.log (JSON.parse(recordset.recordsets[0][0][""]));
+          sql.close();
+      });     
+    }); 
+}); 
+
+
+
+app.post("/api/getsupplierltb", (req, res) => {
+  //console.log(req.body);
+  var sql = require('mssql'); 
+  var config;
+  if(req.body.companyId==='FTI')
+  {
+   config = {
+    user: 'uatadminuser',
+    password: 'uat@Dmzx!w1R',
+    server: '52.66.99.73', 
+    database: 'UAT_TravelMaster_FTI',
+    options: {      
+        trustServerCertificate: true,  
+      }   
+    };
+  }
+     // connect to your sql database to get the graphic data for jenkins pipeline commit 3 dated on 02 jan 2023
+    sql.connect(config, function (err) {
+
+      if (err) console.log(err);  
+      // create Request object
+      var request = new sql.Request();
+      // query to the database and get the records
+      var searchdate=req.body.searchdate;
+      var service=req.body.service;
+      var channel=req.body.channel;      
+      var companyId=req.body.companyId;
+      var procqry="exec sp_supplierLTB @SearchDate='" + searchdate + "', @Service='" + service + "', @Channel='" + channel + "', @CompId='" + companyId + "';";
+      console.log(procqry);
+      request.query(procqry, function (err, recordset) {
+          if (err) console.log(err); 
+          res.send(JSON.parse(recordset.recordsets[0][0][""]));
+          console.log (JSON.parse(recordset.recordsets[0][0][""]));
+          sql.close();
+      });     
+    }); 
+}); 
+
+app.post("/api/gettodaysbookings", (req, res) => {
+  //console.log(req.body);
+  var sql = require('mssql'); 
+  var config;
+  if(req.body.companyId==='FTI')
+  {
+   config = {
+    user: 'uatadminuser',
+    password: 'uat@Dmzx!w1R',
+    server: '52.66.99.73', 
+    database: 'UAT_TravelMaster_FTI',
+    options: {      
+        trustServerCertificate: true,  
+      }   
+    };
+  }
+     // connect to your sql database to get the graphic data for jenkins pipeline commit 3 dated on 02 jan 2023
+    sql.connect(config, function (err) {
+
+      if (err) console.log(err);  
+      // create Request object
+      var request = new sql.Request();
+      // query to the database and get the records
+      var searchdate=req.body.searchdate;
+      var service=req.body.service;
+      var channel=req.body.channel;      
+      var companyId=req.body.companyId;
+      var procqry="exec sp_todaysBooking @SearchDate='" + searchdate + "', @Service='" + service + "', @Channel='" + channel + "', @CompId='" + companyId + "';";
+      console.log(procqry);
+      request.query(procqry, function (err, recordset) {
+          if (err) console.log(err); 
+          res.send(JSON.parse(recordset.recordsets[0][0][""]));
+          console.log (JSON.parse(recordset.recordsets[0][0][""]));
+          sql.close();
+      });     
+    }); 
+}); 
+
+
+app.post("/api/gettopsearchedsectors", (req, res) => {
+  //console.log(req.body);
+  var sql = require('mssql'); 
+  var config;
+  if(req.body.companyId==='FTI')
+  {
+   config = {
+    user: 'uatadminuser',
+    password: 'uat@Dmzx!w1R',
+    server: '52.66.99.73', 
+    database: 'UAT_TravelMaster_FTI',
+    options: {      
+        trustServerCertificate: true,  
+      }   
+    };
+  }
+     // connect to your sql database to get the graphic data for jenkins pipeline commit 3 dated on 02 jan 2023
+    sql.connect(config, function (err) {
+
+      if (err) console.log(err);  
+      // create Request object
+      var request = new sql.Request();
+      // query to the database and get the records
+      var searchdate=req.body.searchdate;
+      var service=req.body.service;
+      var channel=req.body.channel;      
+      var companyId=req.body.companyId;
+      var procqry="exec sp_topSearchedSectors @SearchDate='" + searchdate + "', @Service='" + service + "', @Channel='" + channel + "', @CompId='" + companyId + "';";
+      console.log(procqry);
+      request.query(procqry, function (err, recordset) {
+          if (err) console.log(err); 
+          res.send(JSON.parse(recordset.recordsets[0][0][""]));
+          console.log (JSON.parse(recordset.recordsets[0][0][""]));
+          sql.close();
+      });     
+    }); 
+}); 
+
+
+
 
 // app.post("/api/postdata", (req, res) => {
 
